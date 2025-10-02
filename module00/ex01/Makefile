@@ -6,7 +6,7 @@ CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRCDIR = .
 OBJDIR = obj
 
-SOURCES = phoneBook.cpp
+SOURCES = PhoneBook.cpp Contact.cpp Utils.cpp main.cpp
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
 # Colors for output
