@@ -1,0 +1,12 @@
+#include <iostream>
+#include <string>
+
+class Weapon
+{
+	private:
+		std::string type;
+	public:
+		Weapon(std::string name);
+		const std::string &getType(void) const;
+		void	setType(std::string newType);
+};
