@@ -41,6 +41,7 @@ int main(int argc, char **argv)
 	if (!outFile)
 	{
 		std::cerr << "Error while creating .replace file!\n";
+		inputFile.close();
 		return 1;
 	}
 	std::string line;
