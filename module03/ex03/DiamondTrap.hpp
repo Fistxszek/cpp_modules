@@ -9,4 +9,7 @@ class DiamondTrap : public ScavTrap, public FragTrap
 		void whoAmI();
 		using ScavTrap::attack;
 		~DiamondTrap();
+		//tests
+		std::string getDiamondName() const { return Name; }
+		std::string getClapTrapName() const { return ClapTrap::Name; }
 };
