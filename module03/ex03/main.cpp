@@ -109,20 +109,29 @@ void testEx03() {
     dt1.whoAmI();
     SEPARATOR()
     
-    TEST_CASE("DiamondTrap Copy/Assignment Test")
-    SECTION("Copy Constructor Test")
-    DiamondTrap dt2(dt1);
-    dt2.whoAmI();
-    TEST_RESULT(dt2.getDiamondName() == dt1.getDiamondName(), "Copy constructor preserves name");
-    SEPARATOR()
-    
-    SECTION("Assignment Operator Test")
-    DiamondTrap dt3("AnotherDiamond");
-    SEPARATOR()
-    dt3 = dt1;
-    dt3.whoAmI();
-    TEST_RESULT(dt3.getDiamondName() == dt1.getDiamondName(), "Assignment operator preserves name");
-    SEPARATOR()
+	TEST_CASE("DiamondTrap Copy/Assignment Test")
+	SECTION("Copy Constructor Test")
+	{
+		DiamondTrap dt2(dt1);
+		dt2.whoAmI();
+		TEST_RESULT(dt2.getDiamondName() == dt1.getDiamondName(), "Copy constructor preserves name");
+		SEPARATOR()
+		SECTION("dt2 Destruction")
+	} // dt2 destroyed here
+	SEPARATOR()
+
+	SECTION("Assignment Operator Test")
+	{
+		DiamondTrap dt3("AnotherDiamond");
+		SEPARATOR()
+		dt3 = dt1;
+		dt3.whoAmI();
+		TEST_RESULT(dt3.getDiamondName() == dt1.getDiamondName(), "Assignment operator preserves name");
+		SEPARATOR()
+		SECTION("dt3 Destruction")
+	} // dt3 destroyed here
+	SEPARATOR()
+
     
     TEST_CASE("Destructor Chain Test")
     SECTION("Temporary Object Creation")
