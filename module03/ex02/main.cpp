@@ -6,7 +6,14 @@ int main ()
 	ClapTrap clapTrap("Ballerina");
 	FragTrap fragTrap("Jan Pawel II");
 
-	clapTrap.attack("Dupa!");
+	std::cout <<"\n";
+	FragTrap lll(fragTrap);
+	FragTrap dokopii("dokopppi");
+
+	dokopii = lll;
+	lll.attack("abc");
+	dokopii.attack("ddd");
+	std::cout <<"\n";
 	clapTrap.beRepaired(15);	
 	clapTrap.takeDamage(1);
 	scavTrap.attack("Sahur");
