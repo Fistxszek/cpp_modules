@@ -10,22 +10,22 @@ int main()
 	std::cout << "------------------------------------\n";
 	const WrongAnimal* i = new WrongCat();
 	std::cout << "------------------------------------\n";
-	Dog cat;	
+	Dog dog1;	
 	std::cout << "------------------------------------\n";
-	Dog dupa;
+	Dog dog2;
 	std::cout << "------------------------------------\n";
-	dupa = cat;
+	dog2 = dog1;
 	std::cout << "------------------------------------\n";
 	std::cout << j->getType() << " " << std::endl;
 	std::cout << i->getType() << " " << std::endl;
-	std::cout << cat.getType() << " " << std::endl;
-	std::cout << dupa.getType() << " " << std::endl;
+	std::cout << dog1.getType() << " " << std::endl;
+	std::cout << dog2.getType() << " " << std::endl;
 	std::cout << "------------------------------------\n";
 
 	i->makeSound(); //will output the cat sound!
 	j->makeSound();
-	cat.makeSound();
-	dupa.makeSound();
+	dog1.makeSound();
+	dog2.makeSound();
 	std::cout << "------------------------------------\n";
 	std::cout << "------------------------------------\n";
 	delete j;
