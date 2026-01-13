@@ -1,12 +1,19 @@
+#ifndef BUREAUCRAT_HPP
+#define BUREAUCRAT_HPP
+
 #include <exception>
 #include <stdexcept>
 #include <iostream>
+#include <string>
+
+static const std::string RED = "\033[0;31m";
+static const std::string RESET = "\033[0m";
 
 class Bureaucrat
 {
 	private:
-		std::string Name;
-		int Grade;
+		const std::string _name;
+		int _grade;
 	public:
 		Bureaucrat(std::string Name, int Grade);
 		Bureaucrat();
@@ -20,17 +27,27 @@ class Bureaucrat
 
 		class GradeTooHighException : public std::exception
 		{
+			private:
+				std::string _message;
 			public:
+				GradeTooHighException();
+				GradeTooHighException(const std::string &message);
+				~GradeTooHighException() throw();
 				const char* what() const throw();
-
 		};
 
 		class GradeTooLowException : public std::exception
 		{
+			private:
+				std::string _message;
 			public:
+				GradeTooLowException();
+				GradeTooLowException(const std::string &message);
+				~GradeTooLowException() throw();
 				const char* what() const throw();
-
 		};
 
 };
 std::ostream& operator<<(std::ostream &os, const Bureaucrat &other);
+
+#endif

@@ -6,7 +6,7 @@ CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRCDIR = .
 OBJDIR = obj
 
-SOURCES = main.cpp Bureaucrat.hpp Bureaucrat.cpp
+SOURCES = main.cpp Bureaucrat.cpp Bureaucrat.hpp
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
 # Colors for output

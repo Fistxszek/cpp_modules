@@ -1,27 +1,32 @@
 #include "Bureaucrat.hpp"
 #include <ostream>
+#include <string>
 
-Bureaucrat::Bureaucrat(std::string Name, int Grade)
+Bureaucrat::Bureaucrat(std::string Name, int Grade) : _name(Name)
 {
-	this->Name = Name;
-	this->Grade = Grade;
+	std::cout << "Bureaucrat constructor called\n";
+	if (Grade > 150)
+		throw Bureaucrat::GradeTooLowException("Constructor grade value of [" + this->GetName() +  "] is too low.");
+	else if (Grade < 1)
+		throw Bureaucrat::GradeTooHighException("Constructor grade value of [" + this->GetName() + "] is too high.");
+	this->_grade = Grade;
 }
-Bureaucrat::Bureaucrat()
+Bureaucrat::Bureaucrat() : _name("")
 {
-	Name = "";
-	Grade = 0;
+	std::cout << "Empty Bureaucrat constructor called\n";
+	_grade = 150;
 }
-Bureaucrat::Bureaucrat(const Bureaucrat &cpyObj)
+Bureaucrat::Bureaucrat(const Bureaucrat &cpyObj) : _name(cpyObj.GetName())
 {
-	this->Name = cpyObj.GetName();
-	this->Grade = cpyObj.GetGrade();
+	std::cout << "Copy Bureaucrat constructor called\n";
+	*this = cpyObj;
 }
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
+	std::cout << "Copy Bureaucrat operator called\n";
 	if (&other != this)
 	{
-		this->Name = other.GetName();
-		this->Grade = other.GetGrade();
+		this->_grade = other.GetGrade();
 	}
 	return *this;
 }
@@ -37,38 +42,45 @@ std::ostream& operator<<(std::ostream &os, const Bureaucrat &other)
 
 Bureaucrat::~Bureaucrat()
 {
-
+	std::cout << "Bureaucrat destructor called\n";
 }
 
 const std::string &Bureaucrat::GetName() const
 {
-	return (this->Name);
+	return (this->_name);
 }
 int Bureaucrat::GetGrade() const
 {
-	return (this->Grade);
+	return (this->_grade);
 }
 
 void Bureaucrat::IncrementGrade()
 {
-	if (Grade == 1)
-		throw Bureaucrat::GradeTooHighException(); //tofix
-	Grade--;
+	if (_grade == 1)
+		throw Bureaucrat::GradeTooHighException("Incremention failed: [" + this->GetName() + "] grade is already highest possible.");
+	_grade--;
 }
 void Bureaucrat::DecrementGrade()
 {
-	if (Grade == 150)
-		throw Bureaucrat::GradeTooLowException(); //tofix
-	Grade++;
+	if (_grade == 150)
+		throw Bureaucrat::GradeTooLowException("Decremention failed: [" + this->GetName() + "] grade is already lowest possible.");
+	_grade++;
 }
 
+Bureaucrat::GradeTooLowException::GradeTooLowException() : _message("Grade too low"){}
+Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string &message) : _message(message){}
+Bureaucrat::GradeTooLowException::~GradeTooLowException() throw() {}
+
+Bureaucrat::GradeTooHighException::GradeTooHighException() : _message("Grade too high"){}
+Bureaucrat::GradeTooHighException::GradeTooHighException(const std::string &message) : _message(message){}
+Bureaucrat::GradeTooHighException::~GradeTooHighException() throw() {}
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return ("to high");
+	return (_message.c_str());
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return ("to low");
+	return (_message.c_str());
 }
