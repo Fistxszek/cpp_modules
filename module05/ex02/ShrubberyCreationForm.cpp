@@ -36,7 +36,17 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
 	AForm::execute(executor);
 
-	std::cout << "ShrubberyCreationForm EXECUTED by: "<< executor.GetName() << " on " + this->GetTarget() + "\n";
+	std::string fileName = this->GetTarget() + "_shrubbery";
+	std::ofstream shrubberyFile(fileName.c_str());
+
+	shrubberyFile << "     *            *     " << std::endl;
+	shrubberyFile << "    ***          ***    " << std::endl;
+	shrubberyFile << "   *****        *****   " << std::endl;
+	shrubberyFile << "  *******      *******  " << std::endl;
+	shrubberyFile << " *********    ********* " << std::endl;
+	shrubberyFile << "***********  ***********" << std::endl;
+	shrubberyFile.close();
+	std::cout << "Created a file named " << fileName << " in working directiory.\n";
 }
 
 const std::string &ShrubberyCreationForm::GetTarget() const

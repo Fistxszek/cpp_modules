@@ -2,6 +2,7 @@
 #define ROBOTO_HPP
 
 #include "AForm.hpp"
+#include <cstdlib>
 
 class RobotomyRequestForm : public virtual AForm
 {

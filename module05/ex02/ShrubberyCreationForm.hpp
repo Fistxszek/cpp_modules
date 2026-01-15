@@ -2,6 +2,7 @@
 #define SHRUBBERY_HPP
 
 #include "AForm.hpp"
+#include "fstream"
 
 class ShrubberyCreationForm : public virtual AForm
 {

@@ -36,7 +36,7 @@ void PresidentialPardonForm::execute(Bureaucrat const & executor) const
 {
 	AForm::execute(executor);
 
-	std::cout << "PresidentialPardonForm EXECUTED by: "<< executor.GetName() << " on " + this->GetTarget() + "\n";
+	std::cout << "The " << this->GetTarget() << " has been pardoned by Zaphod Beeblebrox.\n";
 }
 
 const std::string &PresidentialPardonForm::GetTarget() const

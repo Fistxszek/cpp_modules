@@ -76,10 +76,11 @@ void Bureaucrat::executeForm(AForm const & form) const
 	try
 	{
 		form.execute(*this);
+		std::cout << GREEN << this->GetName() << " executed " << form.GetName() << RESET << std::endl;
 	}
 	catch (AForm::GradeTooLowException &e)
 	{
-		std::cout << RED << e.what() << std::endl << RESET;
+		std::cout << RED << e.what() << "." << std::endl << RESET;
 	}
 }
 
