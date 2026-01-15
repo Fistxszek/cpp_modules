@@ -6,7 +6,7 @@
 
 int main()
 {
-	Bureaucrat adam("Adam", 1);
+	Bureaucrat adam("Adam", 60);
 	PresidentialPardonForm test("dupa");
 	ShrubberyCreationForm a("kwiatki");
 	RobotomyRequestForm b("okok");

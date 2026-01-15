@@ -34,12 +34,8 @@ PresidentialPardonForm::~PresidentialPardonForm()
 
 void PresidentialPardonForm::execute(Bureaucrat const & executor) const
 {
-	if (this->GetGradeRequiredToExecute() < executor.GetGrade())
-	{
-		std::stringstream ss;
-		ss << "Execution failed due to " << executor.GetName() << "'s insufficient grade (" << executor.GetGrade() << ") while required grade is: " << this->GetGradeRequiredToExecute();
-		throw AForm::GradeTooLowException(ss.str());
-	}
+	AForm::execute(executor);
+
 	std::cout << "PresidentialPardonForm EXECUTED by: "<< executor.GetName() << " on " + this->GetTarget() + "\n";
 }
 
