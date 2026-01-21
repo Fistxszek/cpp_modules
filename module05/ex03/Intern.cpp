@@ -1,4 +1,9 @@
 #include "Intern.hpp"
+#include "AForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include <string>
 
 Intern::Intern(void)
 {
@@ -19,7 +24,20 @@ Intern::~Intern(void)
 {
 	std::cout << "Intern denstructor called\n";
 }
+#include <map>
 void Intern::makeForm(std::string formName, std::string formTarget)
 {
-	
+
+	std::map<std::string, AForm> formsTypes = {{"ShrubberyCreationForm", ShrubberyCreationForm}, {"RobotomyRequestForm", RobotomyRequestForm}, {"PresidentialPardonForm", PresidentialPardonForm}};
+	AForm res = formsTypes[formName];
+
+	switch (res)
+	{
+		case (0)://shrubbery creation form
+			break;
+		case (1)://robotomy request form
+			break;
+		case (2)://presidentail pardon
+			break;
+	}
 }
