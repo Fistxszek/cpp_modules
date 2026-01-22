@@ -12,32 +12,50 @@ Intern::Intern(void)
 Intern::Intern(const Intern &other)
 {
 	std::cout << "Intern copy constructor called\n";
+	*this = other;
 }
 Intern &Intern::operator=(const Intern &other)
 {
 	std::cout << "Intern copy operator called\n";
-	//if (*this != other)
-		//something
+	if (this == &other)
+		return *this;
 	return *this;
 }
 Intern::~Intern(void)
 {
 	std::cout << "Intern denstructor called\n";
 }
+
 #include <map>
-void Intern::makeForm(std::string formName, std::string formTarget)
+AForm *Intern::makeForm(std::string formName, std::string formTarget)
 {
+	std::map<std::string, Forms> formsTypes;
+    formsTypes["ShrubberyCreationForm"] =  Shrubbery;
+    formsTypes["RobotomyRequestForm"] = Robotomy;
+    formsTypes["PresidentialPardonForm"] = Presidential;
 
-	std::map<std::string, AForm> formsTypes = {{"ShrubberyCreationForm", ShrubberyCreationForm}, {"RobotomyRequestForm", RobotomyRequestForm}, {"PresidentialPardonForm", PresidentialPardonForm}};
-	AForm res = formsTypes[formName];
-
-	switch (res)
+	Forms type;
+	try
 	{
-		case (0)://shrubbery creation form
+		 type = formsTypes.at(formName);
+	}
+	catch (std::out_of_range& e)
+	{
+		std::cerr << "Out of range error: " << e.what() << std::endl;
+		return NULL;
+	}
+
+	switch (type)
+	{
+		case (Shrubbery):
+			return new ShrubberyCreationForm(formTarget);
 			break;
-		case (1)://robotomy request form
+		case (Robotomy):
+			return new RobotomyRequestForm(formTarget);
 			break;
-		case (2)://presidentail pardon
+		case (Presidential):
+			return new PresidentialPardonForm(formTarget);
 			break;
 	}
+	return NULL;
 }

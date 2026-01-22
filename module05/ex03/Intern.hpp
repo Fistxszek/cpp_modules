@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
@@ -12,5 +13,12 @@ class Intern
 		Intern(const Intern &other);
 		Intern &operator=(const Intern &other);
 		virtual ~Intern(void);
-		void makeForm(std::string formName, std::string formTarget);
+		AForm *makeForm(std::string formName, std::string formTarget);
+};
+
+enum Forms
+{
+	Shrubbery,
+	Robotomy,
+	Presidential
 };
