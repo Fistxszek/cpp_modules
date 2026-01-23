@@ -14,12 +14,12 @@ int main()
 		std::cout << tmpForm << std::endl;
 		std::cout << tomek << std::endl;
 		std::cout << "-------------Correct sign-------------\n";
-		form->SignForm(tomek);
+		tomek.SignForm(*form);
 		std::cout << *form;
 		std::cout << "\n-------------Dencrement grade-------------\n";
 		tomek.DecrementGrade();
 		std::cout << "\n-------------Incorrect sign-------------\n";
-		form->SignForm(tomek);
+		tomek.SignForm(*form);
 		std::cout << "\n-------------Destruction-------------\n";
 		delete form;
 	}

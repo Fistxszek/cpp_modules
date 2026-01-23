@@ -77,23 +77,6 @@ bool AForm::BeSigned(Bureaucrat &SigningBureaucrat)
 	return this->GetIsSigned();
 }
 
-void AForm::SignAForm(Bureaucrat &SigningBureaucrat)
-{
-	try
-	{
-		if (AForm::BeSigned(SigningBureaucrat))
-			std::cout << GREEN << SigningBureaucrat.GetName() << " signed " << this->GetName() << std::endl << RESET;
-	}
-	catch (const AForm::GradeTooLowException &e)
-	{
-		std::cout << RED << SigningBureaucrat.GetName() << " couldn't sign " << this->GetName() << " because " << e.what() << "." << std::endl <<  RESET;
-	}
-	catch (const AForm::GradeTooHighException &e)
-	{
-		std::cout << RED << SigningBureaucrat.GetName() << " couldn't sign " << this->GetName() << " because " << e.what() << "." << std::endl << RESET;
-	}
-}
-
 void AForm::execute(Bureaucrat const & executor) const
 {
 	if (this->GetGradeRequiredToExecute() < executor.GetGrade())

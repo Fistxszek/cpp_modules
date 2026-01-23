@@ -81,23 +81,6 @@ bool Form::BeSigned(Bureaucrat &SigningBureaucrat)
 	return this->GetIsSigned();
 }
 
-void Form::SignForm(Bureaucrat &SigningBureaucrat)
-{
-	try
-	{
-		if (Form::BeSigned(SigningBureaucrat))
-			std::cout << GREEN << SigningBureaucrat.GetName() << " signed " << this->GetName() << std::endl << RESET;
-	}
-	catch (const Form::GradeTooLowException &e)
-	{
-		std::cout << RED << SigningBureaucrat.GetName() << " couldn't sign " << this->GetName() << " because " << e.what() << "." << std::endl <<  RESET;
-	}
-	catch (const Form::GradeTooHighException &e)
-	{
-		std::cout << RED << SigningBureaucrat.GetName() << " couldn't sign " << this->GetName() << " because " << e.what() << "." << std::endl << RESET;
-	}
-}
-
 Form::GradeTooLowException::GradeTooLowException() : _message("Grade too low"){}
 Form::GradeTooLowException::GradeTooLowException(const std::string &message) : _message(message){}
 Form::GradeTooLowException::~GradeTooLowException() throw() {}

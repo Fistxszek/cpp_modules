@@ -27,7 +27,6 @@ class AForm
 		int GetGradeRequiredToExecute() const;
 
 		bool BeSigned(Bureaucrat &SigningBureaucrat);
-		void SignAForm(Bureaucrat &SigningBureaucrat);
 
 		virtual	void execute(Bureaucrat const & executor) const = 0;
 

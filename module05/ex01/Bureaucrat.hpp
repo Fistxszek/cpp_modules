@@ -1,10 +1,13 @@
 #ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
 
+#include "Form.hpp"
 #include <exception>
 #include <stdexcept>
 #include <iostream>
 #include <string>
+
+class Form;
 
 static const std::string RED = "\033[0;31m";
 static const std::string GREEN = "\033[0;32m";
@@ -25,6 +28,8 @@ class Bureaucrat
 		int GetGrade() const ;
 		void IncrementGrade();
 		void DecrementGrade();
+
+		void SignForm(Form &FormToSign);
 
 		class GradeTooHighException : public std::exception
 		{

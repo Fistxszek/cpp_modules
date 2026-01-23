@@ -70,6 +70,22 @@ void Bureaucrat::DecrementGrade()
 	_grade++;
 	std::cout  << this->GetName() << "'s grade"<< " has been decremented from " << startGrade << " to " << this->GetGrade() << std::endl;
 }
+void Bureaucrat::SignForm(Form &FormToSign)
+{
+	try
+	{
+		if (FormToSign.BeSigned(*this))
+			std::cout << GREEN << this->GetName() << " signed " << FormToSign.GetName() << std::endl << RESET;
+	}
+	catch (const Form::GradeTooLowException &e)
+	{
+		std::cout << RED << this->GetName() << " couldn't sign " << FormToSign.GetName() << " because " << e.what() << "." << std::endl <<  RESET;
+	}
+	catch (const Form::GradeTooHighException &e)
+	{
+		std::cout << RED << this->GetName() << " couldn't sign " << FormToSign.GetName() << " because " << e.what() << "." << std::endl << RESET;
+	}
+}
 
 Bureaucrat::GradeTooLowException::GradeTooLowException() : _message("Grade too low"){}
 Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string &message) : _message(message){}
