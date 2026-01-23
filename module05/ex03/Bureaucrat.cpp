@@ -70,11 +70,32 @@ void Bureaucrat::DecrementGrade()
 	std::cout  << this->GetName() << "'s grade"<< " has been decremented from " << startGrade << " to " << this->GetGrade() << std::endl;
 }
 
+void Bureaucrat::SignForm(AForm &FormToSign)
+{
+	try
+	{
+		if (FormToSign.BeSigned(*this))
+			std::cout << GREEN << this->GetName() << " signed " << FormToSign.GetName() << std::endl << RESET;
+	}
+	catch (const AForm::GradeTooLowException &e)
+	{
+		std::cout << RED << this->GetName() << " couldn't sign " << FormToSign.GetName() << " because " << e.what() << "." << std::endl <<  RESET;
+	}
+	catch (const AForm::GradeTooHighException &e)
+	{
+		std::cout << RED << this->GetName() << " couldn't sign " << FormToSign.GetName() << " because " << e.what() << "." << std::endl << RESET;
+	}
+}
 
 void Bureaucrat::executeForm(AForm const & form) const
 {
 	try
 	{
+		if (!form.GetIsSigned())
+		{
+			std::cerr << RED << "Form '" << form.GetName() << "' is not signed. Form execution failed.\n" << RESET;
+			return;
+		}
 		form.execute(*this);
 		std::cout << GREEN << this->GetName() << " executed " << form.GetName() << RESET << std::endl;
 	}

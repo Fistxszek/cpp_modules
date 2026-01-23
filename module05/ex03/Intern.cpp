@@ -1,9 +1,5 @@
 #include "Intern.hpp"
-#include "AForm.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include <string>
+#include "Bureaucrat.hpp"
 
 Intern::Intern(void)
 {
@@ -26,13 +22,12 @@ Intern::~Intern(void)
 	std::cout << "Intern denstructor called\n";
 }
 
-#include <map>
 AForm *Intern::makeForm(std::string formName, std::string formTarget)
 {
 	std::map<std::string, Forms> formsTypes;
-    formsTypes["ShrubberyCreationForm"] =  Shrubbery;
-    formsTypes["RobotomyRequestForm"] = Robotomy;
-    formsTypes["PresidentialPardonForm"] = Presidential;
+    formsTypes["shrubbery creation"] =  Shrubbery;
+    formsTypes["robotomy request"] = Robotomy;
+    formsTypes["presidential pardon"] = Presidential;
 
 	Forms type;
 	try
@@ -41,7 +36,7 @@ AForm *Intern::makeForm(std::string formName, std::string formTarget)
 	}
 	catch (std::out_of_range& e)
 	{
-		std::cerr << "Out of range error: " << e.what() << std::endl;
+		std::cerr << RED << "ERROR: Form name '" << formName << "' doesn't exist." << std::endl << RESET;
 		return NULL;
 	}
 
