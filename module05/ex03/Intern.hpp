@@ -12,10 +12,16 @@ class Intern
 	private:
 		enum Forms
 		{
+			None,
 			Shrubbery,
 			Robotomy,
 			Presidential
 		};
+		struct FormPair
+		{
+			std::string _name;
+			Forms _type;
+		} ;
 	public:
 		Intern(void);
 		Intern(const Intern &other);

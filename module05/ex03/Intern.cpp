@@ -1,5 +1,6 @@
 #include "Intern.hpp"
 #include "Bureaucrat.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 Intern::Intern(void)
 {
@@ -24,24 +25,28 @@ Intern::~Intern(void)
 
 AForm *Intern::makeForm(std::string formName, std::string formTarget)
 {
-	std::map<std::string, Forms> formsTypes;
-    formsTypes["shrubbery creation"] =  Shrubbery;
-    formsTypes["robotomy request"] = Robotomy;
-    formsTypes["presidential pardon"] = Presidential;
-
-	Forms type;
-	try
+	FormPair pairs[3] = 
 	{
-		 type = formsTypes.at(formName);
-	}
-	catch (std::out_of_range& e)
+		{"shrubbery creation", Shrubbery},
+		{"robotomy request", Robotomy},
+		{"presidential pardon", Presidential}	
+	};
+	Forms type = None;
+	for (int i = 0; i < 3; i++)
 	{
-		std::cerr << RED << "ERROR: Form name '" << formName << "' doesn't exist." << std::endl << RESET;
-		return NULL;
+		if (pairs[i]._name == formName)
+		{
+			type = pairs[i]._type;
+			break;
+		}
 	}
 
 	switch (type)
 	{
+		case (None):
+			std::cerr << RED << "ERROR: Form name '" << formName << "' doesn't exist." << std::endl << RESET;
+			return NULL;
+			break;
 		case (Shrubbery):
 			return new ShrubberyCreationForm(formTarget);
 			break;
