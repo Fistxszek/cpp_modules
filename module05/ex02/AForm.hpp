@@ -28,7 +28,7 @@ class AForm
 
 		bool BeSigned(Bureaucrat &SigningBureaucrat);
 
-		virtual	void execute(Bureaucrat const & executor) const = 0;
+		virtual	bool execute(Bureaucrat const & executor) const = 0;
 
 		class GradeTooHighException : public std::exception
 		{
@@ -37,7 +37,7 @@ class AForm
 			public:
 				GradeTooHighException();
 				GradeTooHighException(const std::string &message);
-				~GradeTooHighException() throw();
+				virtual ~GradeTooHighException() throw();
 				const char* what() const throw();
 		};
 		class GradeTooLowException : public std::exception
@@ -47,7 +47,7 @@ class AForm
 			public:
 				GradeTooLowException();
 				GradeTooLowException(const std::string &message);
-				~GradeTooLowException() throw();
+				virtual ~GradeTooLowException() throw();
 				const char* what() const throw();
 		};
 };

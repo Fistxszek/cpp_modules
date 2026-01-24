@@ -10,31 +10,31 @@ int main()
 	{
 		std::cout << "-------------Contruction-------------\n";
 		Bureaucrat adam("Adam", 1);
-		Bureaucrat tomek("Ojciec Mateusz", 50);
+		Bureaucrat mateusz("Ojciec Mateusz", 50);
 		{
-		PresidentialPardonForm test("dupa");
-		ShrubberyCreationForm a("kwiatki");
-		RobotomyRequestForm b("okok");
+		PresidentialPardonForm presidential("presidential");
+		ShrubberyCreationForm kwiatki("kwiatki");
+		RobotomyRequestForm roboto("roboto");
 		std::cout << "-------------Correct exec-------------\n";
-		adam.SignForm(test);
-		adam.executeForm(test);
-		adam.SignForm(a);
-		tomek.executeForm(a);
-		adam.executeForm(b);
+		adam.SignForm(presidential);
+		adam.executeForm(presidential);
+		adam.SignForm(kwiatki);
+		mateusz.executeForm(kwiatki);
+		adam.executeForm(roboto);
 		}
 		std::cout << "\n-------------Dencrement grade-------------\n";
 		for (int i = 1; i < 150; i++)
 			adam.DecrementGrade();
 
-		PresidentialPardonForm test("dupa");
-		ShrubberyCreationForm a("kwiatki");
-		RobotomyRequestForm b("okok");
+		PresidentialPardonForm presidential("presidential");
+		ShrubberyCreationForm kwiatki("kwiatki");
+		RobotomyRequestForm roboto("roboto");
 		std::cout << "\n-------------Incorrect sign-------------\n";
-		adam.SignForm(test);
-		adam.executeForm(test);
-		adam.SignForm(a);
-		tomek.executeForm(a);
-		adam.executeForm(b);
+		adam.SignForm(presidential);
+		adam.executeForm(presidential);
+		adam.SignForm(kwiatki);
+		mateusz.executeForm(kwiatki);
+		adam.executeForm(roboto);
 		std::cout << "\n-------------Destruction-------------\n";
 	}
 	catch (const Bureaucrat::GradeTooLowException &e)

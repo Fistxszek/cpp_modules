@@ -78,14 +78,17 @@ bool AForm::BeSigned(Bureaucrat &SigningBureaucrat)
 	return this->GetIsSigned();
 }
 
-void AForm::execute(Bureaucrat const & executor) const
+bool AForm::execute(Bureaucrat const & executor) const
 {
+	if (!this->GetIsSigned())
+		return false;
 	if (this->GetGradeRequiredToExecute() < executor.GetGrade())
 	{
 		std::stringstream ss;
 		ss << "Execution of " << this->GetName() << " failed due to " << executor.GetName() << "'s insufficient grade (" << executor.GetGrade() << ") while required grade is: " << this->GetGradeRequiredToExecute();
 		throw AForm::GradeTooLowException(ss.str());
 	}
+	return true;
 }
 
 AForm::GradeTooLowException::GradeTooLowException() : _message("Grade too low"){}

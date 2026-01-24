@@ -32,9 +32,10 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 	std::cout << "ShrubberyCreationForm destructor called\n";
 }
 
-void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
+bool ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
-	AForm::execute(executor);
+	if (!AForm::execute(executor))
+		return false;
 
 	std::string fileName = this->GetTarget() + "_shrubbery";
 	std::ofstream shrubberyFile(fileName.c_str());
@@ -47,6 +48,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 	shrubberyFile << "***********  ***********" << std::endl;
 	shrubberyFile.close();
 	std::cout << "Created a file named " << fileName << " in working directiory.\n";
+	return true;
 }
 
 const std::string &ShrubberyCreationForm::GetTarget() const

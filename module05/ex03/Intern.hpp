@@ -9,17 +9,17 @@
 
 class Intern
 {
+	private:
+		enum Forms
+		{
+			Shrubbery,
+			Robotomy,
+			Presidential
+		};
 	public:
 		Intern(void);
 		Intern(const Intern &other);
 		Intern &operator=(const Intern &other);
 		virtual ~Intern(void);
 		AForm *makeForm(std::string formName, std::string formTarget);
-};
-
-enum Forms
-{
-	Shrubbery,
-	Robotomy,
-	Presidential
 };

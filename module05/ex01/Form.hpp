@@ -32,7 +32,7 @@ class Form
 			public:
 				GradeTooHighException();
 				GradeTooHighException(const std::string &message);
-				~GradeTooHighException() throw();
+				virtual ~GradeTooHighException() throw();
 				const char* what() const throw();
 		};
 		class GradeTooLowException : public std::exception
@@ -42,7 +42,7 @@ class Form
 			public:
 				GradeTooLowException();
 				GradeTooLowException(const std::string &message);
-				~GradeTooLowException() throw();
+				virtual ~GradeTooLowException() throw();
 				const char* what() const throw();
 		};
 };

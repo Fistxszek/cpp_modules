@@ -34,15 +34,17 @@ RobotomyRequestForm::~RobotomyRequestForm()
 	std::cout << "RobotomyRequestForm destructor called\n";
 }
 
-void RobotomyRequestForm::execute(Bureaucrat const & executor) const
+bool RobotomyRequestForm::execute(Bureaucrat const & executor) const
 {
-	AForm::execute(executor);
+	if (!AForm::execute(executor))
+		return false;
 	std::cout << "DRRRRRRRDRRRRRRRR    BEEP BOPP TRRRRRRR... \n";
 	std::srand(time(NULL)); // chaning random seed
 	int number = rand();
 	number %= 2;
 	std::string result = (number == 1) ? "succeeded!" : "failed!";
 	std::cout << this->GetTarget() << " robotomy " << result <<std::endl;
+	return true;
 }
 
 const std::string &RobotomyRequestForm::GetTarget() const
