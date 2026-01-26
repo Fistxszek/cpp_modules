@@ -1,4 +1,4 @@
-NAME = bureaucrat
+NAME = converter
 
 CXX = c++
 CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
@@ -6,7 +6,7 @@ CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRCDIR = .
 OBJDIR = obj
 
-SOURCES = main.cpp Bureaucrat.cpp Bureaucrat.hpp
+SOURCES = main.cpp ScalarConverter.cpp
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
 # Colors for output
