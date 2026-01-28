@@ -1,4 +1,4 @@
-NAME = serializer
+NAME = type
 
 CXX = c++
 CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
@@ -6,7 +6,7 @@ CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRCDIR = .
 OBJDIR = obj
 
-SOURCES = main.cpp 
+SOURCES = main.cpp Base.cpp 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
 # Colors for output
