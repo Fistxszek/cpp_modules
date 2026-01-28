@@ -1,7 +1,7 @@
 #ifndef SERIALIZER_H
 #define SERIALIZER_H
 
-#include <cstdint>
+#include "stdint.h"
 #include <iostream>
 #include "Data.h"
 

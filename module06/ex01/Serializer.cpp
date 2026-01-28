@@ -1,9 +1,10 @@
 #include "Serializer.hpp"
-#include "Data.h"
-#include <cstdint>
 
 Serializer::Serializer(void){  }
-Serializer::Serializer(const Serializer &other) {  }
+Serializer::Serializer(const Serializer &other) 
+{
+	*this = other;
+}
 Serializer::~Serializer() {  }
 Serializer &Serializer::operator=(const Serializer &other) 
 {
