@@ -1,9 +1,6 @@
 #include <cstdlib>
 #include <iostream>
-#include <iterator>
 #include <sstream>
-#include <string>
-#include <typeinfo>
 #include "Base.hpp"
 #include "A.hpp"
 #include "B.hpp"
@@ -51,21 +48,21 @@ void Identify(Base &p)
 		dynamic_cast<A&>(p);
 		ss << "A";
 	}
-	catch (const std::bad_cast &e){  }
+	catch(...) {  }
 
 	try
 	{
 		dynamic_cast<B&>(p);
 		ss << "B";
 	}
-	catch (const std::bad_cast &e){  }
+	catch(...) {  }
 
 	try
 	{
 		dynamic_cast<C&>(p);
 		ss << "C";
 	}
-	catch (const std::bad_cast &e){  }
+	catch(...) {  }
 
 	ss >> str;
 	std::cout << "Actual type of the &p is : " << str << std::endl;
