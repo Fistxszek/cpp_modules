@@ -17,7 +17,7 @@ int main()
 	abc[2] = 2322;
 	abc[5] = 2;
 	abc[7] = 42;
-	abc[12] = -32;
+	abc[11] = -32;
 	std::cout << "Large array\n";
 	for (unsigned int i = 0; i <= abc.Size() - 1; ++i)
 	{
@@ -69,7 +69,13 @@ int main()
 		std::cout << i << ": " << abc[i] << "\n";
 	}
 	std::cout << "Empty array\n";
-	for (unsigned int i = 0; i < cba.Size() - 1; ++i)
+	for (unsigned int i = 0; i <= cba.Size() - 1; ++i)
+	{
+		std::cout << i << ": " << cba[i] << "\n";
+	}
+	Array <int>dupa(abc);
+	std::cout << "Copy constructor array\n";
+	for (unsigned int i = 0; i <= dupa.Size() - 1; ++i)
 	{
 		std::cout << i << ": " << cba[i] << "\n";
 	}

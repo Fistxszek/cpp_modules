@@ -14,7 +14,7 @@ Array<T>::Array(unsigned int n) :_elements(new T[n]), _n(n)
 template<typename T>
 Array<T>::Array(const Array &other)
 {
-
+	*this = other;
 }
 
 template<typename T>
@@ -39,7 +39,7 @@ T &Array<T>::operator[](unsigned int index)
 {
 	if (index >= this->_n)
 	{
-		throw std::out_of_range("blah");
+		throw std::out_of_range("Out of range");
 	}
 	return this->_elements[index];
 }
