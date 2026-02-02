@@ -3,32 +3,43 @@
 #include <stdexcept>
 #include <utility>
 
+class SomeClass
+{
+	public:
+		SomeClass( void ) : _n( 0 ) { return; }
+		int get( void ) const { return this->_n; }
+		void set( int i ) {this->_n = i; }
+	private:
+		int _n;
+};
+std::ostream & operator<<( std::ostream & o, SomeClass const & rhs ) { o << rhs.get(); return o; }
+
 int main()
 {
-	unsigned int test = 12;
+	unsigned int len = 12;
 	std::cout << "===Construction===\n";
-	Array <int>abc(test);
-	Array <int>cba;
-	for (unsigned int i = 0; i <= abc.Size() - 1; ++i)
+	Array <SomeClass>LargeArray(len);
+	Array <SomeClass>EmptyArray;
+	for (unsigned int i = 0; i <= LargeArray.Size() - 1; ++i)
 	{
-		std::cout << i << ": " << abc[i] << "\n";
+		std::cout << i << ": " << LargeArray[i] << "\n";
 	}
 	std::cout << "===Modifying some elements===\n";
-	abc[2] = 2322;
-	abc[5] = 2;
-	abc[7] = 42;
-	abc[11] = -32;
+	LargeArray[2].set(2322);
+	LargeArray[5].set(2);
+	LargeArray[7].set(23);
+	LargeArray[11].set(999);
 	std::cout << "Large array\n";
-	for (unsigned int i = 0; i <= abc.Size() - 1; ++i)
+	for (unsigned int i = 0; i <= LargeArray.Size() - 1; ++i)
 	{
-		std::cout << i << ": " << abc[i] << "\n";
+		std::cout << i << ": " << LargeArray[i] << "\n";
 	}
 	std::cout << "Empty array\n";
 	std::cout << "===Getting elements===\n";
 	try
 	{
 		std::cout << "Valid ones:\n";
-		std::cout << "Large [2]: " << abc[2] << "\n" << "Large [7]: " << abc[7] << "\n" << "Lagre [12]: " << abc[12] << "\n";
+		std::cout << "Large [2]: " << LargeArray[2] << "\n" << "Large [7]: " << LargeArray[7] << "\n" << "Lagre [11]: " << LargeArray[11] << "\n";
 	}
 	catch(std::out_of_range &e)
 	{
@@ -37,7 +48,7 @@ int main()
 	try
 	{
 		std::cout << "Invalid ones:\n";
-		std::cout << "Large [12] (too high index): " << abc[12] << "\n";
+		std::cout << "Large [12] (too high index): " << LargeArray[12] << "\n";
 	}
 	catch(std::out_of_range &e)
 	{
@@ -45,7 +56,7 @@ int main()
 	}
 	try
 	{
-		std::cout << "Empty [1]: " << cba[1] << "\n";
+		std::cout << "Empty [1]: " << EmptyArray[1] << "\n";
 	}
 	catch(std::out_of_range &e)
 	{
@@ -55,29 +66,29 @@ int main()
 	std::cout << "===Assingment operator===\n";
 	std::cout << "BEFORE:\n";
 	std::cout << "Large array\n";
-	for (unsigned int i = 0; i <= abc.Size() - 1; ++i)
+	for (unsigned int i = 0; i <= LargeArray.Size() - 1; ++i)
 	{
-		std::cout << i << ": " << abc[i] << "\n";
+		std::cout << i << ": " << LargeArray[i] << "\n";
 	}
 	std::cout << "Empty array\n";
-	cba = abc;
+	EmptyArray = LargeArray;
 
 	std::cout << "AFTER:\n";
 	std::cout << "Large array\n";
-	for (unsigned int i = 0; i <= abc.Size() - 1; ++i)
+	for (unsigned int i = 0; i <= LargeArray.Size() - 1; ++i)
 	{
-		std::cout << i << ": " << abc[i] << "\n";
+		std::cout << i << ": " << LargeArray[i] << "\n";
 	}
 	std::cout << "Empty array\n";
-	for (unsigned int i = 0; i <= cba.Size() - 1; ++i)
+	for (unsigned int i = 0; i <= EmptyArray.Size() - 1; ++i)
 	{
-		std::cout << i << ": " << cba[i] << "\n";
+		std::cout << i << ": " << EmptyArray[i] << "\n";
 	}
-	Array <int>dupa(abc);
+	Array <SomeClass>CopyArray(LargeArray);
 	std::cout << "Copy constructor array\n";
-	for (unsigned int i = 0; i <= dupa.Size() - 1; ++i)
+	for (unsigned int i = 0; i <= CopyArray.Size() - 1; ++i)
 	{
-		std::cout << i << ": " << cba[i] << "\n";
+		std::cout << i << ": " << EmptyArray[i] << "\n";
 	}
 	return 0;
 }
