@@ -7,7 +7,7 @@
 
 int main()
 {
-	Span span(120);
+	Span span(20000);
 
 	try
 	{
@@ -25,11 +25,11 @@ int main()
 		span.addNumber(88);	
 		std::cout << "added number 88 with addNumber()\n";
 
-		std::vector<int> vecc(119, 22);
+		std::vector<int> vecc(19999, 22);
 		//std::list<int> vecc(119, 66);
 		span.addNumber(vecc);	
 		//std::cout << "added range of 119 integers with value 22, with addNumber()\n";
-		std::cout << "added range of 119 integers with value 66, with addNumber()\n";
+		std::cout << "added range of 19 999 integers with value 66, with addNumber()\n";
 
 		std::cout << "shortest: " << span.shortestSpan()<< std::endl;
 		std::cout << "longest: " << span.longestSpan()<< std::endl;
