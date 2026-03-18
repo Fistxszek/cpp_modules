@@ -20,6 +20,27 @@ Span::Span(unsigned int N) : _n(N)
 	_vec.reserve(_n);
 }
 
+Span::Span(Span &other) : _n(other._n)
+{
+	_vec.reserve(_n);
+	*this = other;
+}
+
+Span &Span::operator=(const Span &other)
+{
+	if (&other == this)
+		return *this;
+	_n = other._n;
+	_vec.clear();
+	_vec.reserve(this->_n);
+	this->_vec = other._vec;
+	return *this;
+}
+
+Span::~Span(void)
+{
+}
+
 void Span::addNumber(int number)
 {
 	if (_vec.size() == _n)

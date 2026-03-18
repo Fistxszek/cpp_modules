@@ -8,10 +8,14 @@
 class Span
 {
 	private:
-		const unsigned int _n;
+		unsigned int _n;
 		std::vector<int> _vec;
 	public:
 		Span(unsigned int N);
+		Span(Span &other);
+		Span &operator=(const Span &other);
+		~Span(void);
+
 		void addNumber(int number);
 		template<typename T> void addNumber(T &numbers)
 		{

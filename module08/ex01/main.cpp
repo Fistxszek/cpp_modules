@@ -8,7 +8,7 @@
 int main()
 {
 	Span span(20000);
-
+	
 	try
 	{
 		std::cout << "Trying to check shortesSpan() but Span instance has no elements, should fail.\n";
@@ -28,6 +28,13 @@ int main()
 		std::vector<int> vecc(19999, 22);
 		//std::list<int> vecc(119, 66);
 		span.addNumber(vecc);	
+
+		/* Copy Assigments etc.
+		Span spann2(span);
+		Span spann3(5);
+		spann3 = span;
+		*/
+
 		//std::cout << "added range of 119 integers with value 22, with addNumber()\n";
 		std::cout << "added range of 19 999 integers with value 66, with addNumber()\n";
 
