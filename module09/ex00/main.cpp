@@ -2,7 +2,7 @@
 
 int main()
 {
-	std::string csv = "abc.csv";
+	std::string csv = "data.csv";
 	std::string input = "input.txt";
 
 	BitcoinExchange btE(csv, input);

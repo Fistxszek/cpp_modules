@@ -23,6 +23,8 @@ class BitcoinExchange
 
 			bool operator<(const s_date& other) const;
 			bool operator<(const float other) const;
+			bool operator>(const s_date& other) const;
+			bool operator==(const s_date& other) const;
 			bool IsDateValid(void);
 		} t_date;
 

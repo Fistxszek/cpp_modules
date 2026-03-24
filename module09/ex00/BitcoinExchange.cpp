@@ -40,6 +40,7 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &other)
 
 void BitcoinExchange::ParseDB(std::string file, int parseType)
 {
+	bool firstLine = true;
 	std::ifstream dbFile;
 	dbFile.open(file.c_str());
 
@@ -47,6 +48,12 @@ void BitcoinExchange::ParseDB(std::string file, int parseType)
 	std::string line;
 	while (std::getline(dbFile, line))
 	{
+		if (firstLine)
+		{
+			firstLine = false;
+			continue;
+		}
+
 		t_date dateTest;
 		std::string dateTxt; 
 
@@ -107,45 +114,29 @@ void BitcoinExchange::ParseDB(std::string file, int parseType)
 			float val = this->GetBtValueByDate(dateTest);
 			std::cout << dateTest.year << "-" << dateTest.month << "-" << dateTest.day << " => " << value << " = " << value * val << std::endl;
 		}
-	//	std::cout << dateTest.day << ", ";
-	//	std::cout << dateTest.month << ", ";
-	//	std::cout << dateTest.year << separateChar;
-	//	std::cout << value << "\n";
 	}
 }
 
 float BitcoinExchange::GetBtValueByDate(BitcoinExchange::t_date date)
 {
-	float test = 0;
-	try
-	{
-		test = this->_csvDB.at(date);
-		return test;
-	}
-	catch (...){}
-	
 	t_date closestDate = _csvDB.begin()->first;
 	std::map<t_date, float>::iterator it = _csvDB.end();
+
 	for (--it; it != _csvDB.begin(); --it)
 	{
-		int itYear = it->first.year;
-		//int itMonth = it->first.month;
-		//int itDay = it->first.day;
+		t_date itDate = it->first;
 		
-		if (itYear > date.year)
+		if (itDate > date)
 			continue;
-		else if (itYear == date.year)
+		else if (itDate == date)
+			return this->_csvDB.at(date);
+		else if (itDate < date)
 		{
-			if (closestDate.year != itYear)
-				closestDate.year = itYear;	
-		}
-		else if (itYear < date.year)
-		{
-			if (itYear > closestDate.year)
-				closestDate.year = itYear;
+			if (itDate > closestDate)
+				closestDate = itDate;
 		}
 	}
-	return test;
+	return this->_csvDB.at(closestDate);
 }
 
 std::map<BitcoinExchange::t_date, float> const &BitcoinExchange::GetCsvDB(void)
@@ -165,6 +156,22 @@ bool BitcoinExchange::s_date::operator<(const s_date& other) const
 	if (month != other.month)
 		return month < other.month;
 	return day < other.day;
+}
+
+bool BitcoinExchange::s_date::operator>(const s_date& other) const
+{
+	if (year != other.year)
+		return year > other.year;
+	if (month != other.month)
+		return month > other.month;
+	return day > other.day;
+}
+
+bool BitcoinExchange::s_date::operator==(const s_date& other) const
+{
+	if (year == other.year && month == other.month && day == other.day)
+		return true;
+	return false;
 }
 
 bool BitcoinExchange::s_date::operator<(const float other) const
