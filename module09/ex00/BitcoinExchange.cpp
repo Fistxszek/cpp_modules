@@ -1,4 +1,5 @@
 #include "BitcoinExchange.hpp"
+#include <climits>
 #include <iostream>
 #include <iterator>
 #include <ostream>
@@ -11,17 +12,9 @@ BitcoinExchange::BitcoinExchange(void)
 BitcoinExchange::BitcoinExchange(std::string csv, std::string input)
 {
 	this->ParseDB(csv, O_CSV);
-	std::cout << std::endl;
 	this->ParseDB(input, O_INPUT);
-	std::cout << std::endl;
 
 	std::map<t_date, float>::iterator it;
-
-//	for (it = _inputDB.begin(); it != _inputDB.end(); ++it)
-//	{
-//		float val = this->GetBtValueByDate(it->first);
-//		std::cout << val * it->second << std::endl;
-//	}
 }
 
 BitcoinExchange::BitcoinExchange(BitcoinExchange &other)
@@ -42,6 +35,7 @@ void BitcoinExchange::ParseDB(std::string file, int parseType)
 {
 	bool firstLine = true;
 	std::ifstream dbFile;
+	//TODO check for file!!!
 	dbFile.open(file.c_str());
 
 	std::string separateChar = parseType == O_CSV ? "," : "|";
@@ -67,7 +61,7 @@ void BitcoinExchange::ParseDB(std::string file, int parseType)
 			end = i != 2 ? line.find("-", start) : line.find(separateChar, start);
 			if (end == -1)
 			{
-				std::cerr << "Error: Bad input!" << std::endl;
+				std::cerr << "Error: Bad input!" << " => " << line << std::endl;
 				badInput = true;
 				continue;
 			}
@@ -105,6 +99,11 @@ void BitcoinExchange::ParseDB(std::string file, int parseType)
 				std::cerr << "Error: not a positive number!" << std::endl;
 				continue;
 			}
+			else if (value > 100)
+			{
+				std::cerr << "Error: too large number!" << std::endl;
+				continue;
+			}
 			else if (!dateTest.IsDateValid())
 			{
 				std::cerr << "Error: invalid date!" << std::endl;
@@ -112,7 +111,9 @@ void BitcoinExchange::ParseDB(std::string file, int parseType)
 			}
 
 			float val = this->GetBtValueByDate(dateTest);
-			std::cout << dateTest.year << "-" << dateTest.month << "-" << dateTest.day << " => " << value << " = " << value * val << std::endl;
+			std::cout << dateTest 
+				<< " => " << value << " = " 
+				<< value * val << std::endl;
 		}
 	}
 }
@@ -206,4 +207,12 @@ bool BitcoinExchange::s_date::IsDateValid(void)
 	else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
 		return false;
 	return true;
+}
+
+std::ostream& operator<<(std::ostream &os, const BitcoinExchange::t_date &date)
+{
+	os  << date.year << "-"
+		<< std::setfill('0') << std::setw(2 )<< date.month << "-" 
+		<< std::setfill('0') << std::setw(2 )<< date.day;
+	return os;
 }

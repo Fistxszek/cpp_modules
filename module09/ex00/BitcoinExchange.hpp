@@ -5,7 +5,8 @@
 #include <map>
 #include <fstream>
 #include <utility>
-#include <stdexcept>
+#include <limits>	
+#include <iomanip>
 
 
 #define O_CSV	0
@@ -40,3 +41,5 @@ class BitcoinExchange
 		std::map<t_date, float> _csvDB;
 		std::map<t_date, float> _inputDB;
 };
+
+std::ostream& operator<<(std::ostream &os, const BitcoinExchange::t_date &date);
