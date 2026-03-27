@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iterator>
 #include <ostream>
+#include <sstream>
 
 BitcoinExchange::BitcoinExchange(void)
 {
@@ -35,8 +36,13 @@ void BitcoinExchange::ParseDB(std::string file, int parseType)
 {
 	bool firstLine = true;
 	std::ifstream dbFile;
-	//TODO check for file!!!
+
 	dbFile.open(file.c_str());
+	if (!dbFile.is_open())
+	{
+		std::cerr << "ERROR: Couldn't open a file." << std::endl;
+		return;
+	}
 
 	std::string separateChar = parseType == O_CSV ? "," : "|";
 	std::string line;
@@ -87,8 +93,16 @@ void BitcoinExchange::ParseDB(std::string file, int parseType)
 		}
 		start = end + 1;
 		end = line.length();
-		std::string left_l = line.substr(start, end - start);
-		float value = std::atof(left_l.c_str());
+
+		std::stringstream ss(line.substr(start, end - start));
+		std::string line_l;
+		ss >> line_l;
+		float value = std::atof(line_l.c_str());
+		if (line_l.empty() || (value == 0 && line_l[0] != '0'))
+		{
+			std::cerr << "Error: Bad input!" << " => " << line << std::endl;
+			continue ;
+		}
 
 		if (parseType == O_CSV)
 			_csvDB.insert(std::pair<t_date, float>(dateTest, value));
@@ -99,7 +113,7 @@ void BitcoinExchange::ParseDB(std::string file, int parseType)
 				std::cerr << "Error: not a positive number!" << std::endl;
 				continue;
 			}
-			else if (value > 100)
+			else if (value > 1000)
 			{
 				std::cerr << "Error: too large number!" << std::endl;
 				continue;
