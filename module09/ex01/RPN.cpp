@@ -1,62 +1,116 @@
 #include "RPN.hpp"
 
-void RPN::AddToStack(char c)
+RPN::RPN(void)
 {
-	this->stack.push(c);
+	std::cout << "Constructor called" << std::endl;
 }
 
-char RPN::PopTheStack()
+RPN::RPN(char *input)
 {
-	char c = this->stack.top();
-	this->stack.pop();
-	return c;
-}
-
-int RPN::CalcOperator(char calc_operator)
-{
-	char c = PopTheStack();
-	int res = 0;
-	while (c >= '0' && c <= '9')
+	for (int i = 0; input[i]; ++i)
 	{
-		switch (calc_operator)
+		char c = input[i];
+		if (std::isdigit(c))
 		{
-		case '+':
-			res = AddValues(res, c - '0');
-			break;
-		case '-':
-			res = SubtractValues(res, c - '0');
-			break;
-		case '*':
-			res = MultiplyValues(res, c - '0');
-			break;
-		case '/':
-			if (res == 0)
-				break;
-			res = DivideValues(res, c - '0');
-			break;
+			this->AddToStack(c - '0');
+			continue;
 		}
-		char c = PopTheStack();
+		else if (c == '+' || c == '-' || c == '/' || c == '*')
+		{
+			this->CalcOperator(c);
+			continue;
+		}
+		else if (c == ' ')
+			continue;
+		throw std::runtime_error("Error");	
 	}
+	int val = this->PopTheStack();
+	std::cout << val << std::endl;
+}
+
+RPN::RPN(RPN &other)
+{
+	*this = other;
+}
+
+RPN &RPN::operator=(const RPN &other)
+{
+	if (this == &other)
+		return *this;
+	this->stack = other.stack;
+	return *this;
+}
+
+RPN::~RPN(void)
+{
+	//std::cout << "Destructor called" << std::endl;
 }
 
 // helpers
 int AddValues(int a, int b)
 {
-	return a + b;
+	return b + a;
 }
 
 int SubtractValues(int a, int b)
 {
-	return a - b;
+	return b - a;
 }
 
 int MultiplyValues(int a, int b)
 {
-	return a * b;
+	return b * a;
 }
 
 int DivideValues(int a, int b)
 {
-	return a / b;
+	return b / a;
 }
 // end helpers
+
+void RPN::AddToStack(int val)
+{
+	this->stack.push(val);
+}
+
+int RPN::PopTheStack()
+{
+	int val = this->stack.top();
+	this->stack.pop();
+	return val;
+}
+
+int RPN::CalcOperator(char calc_operator)
+{
+	int top = PopTheStack();
+	int res = top;
+	while (!this->stack.empty())
+	{
+		top = PopTheStack();
+		switch (calc_operator)
+		{
+		case '+':
+			res = AddValues(res, top);
+			AddToStack(res);
+			return res;
+		case '-':
+			res = SubtractValues(res, top);
+			AddToStack(res);
+			return res;
+		case '*':
+			res = MultiplyValues(res, top);
+			AddToStack(res);
+			return res;
+		case '/':
+			if (res != 0)
+				res = DivideValues(res, top);
+			else
+				throw std::runtime_error("Error: Divide by 0?!?!?!");	
+			AddToStack(res);
+			return res;
+		}
+	}
+	AddToStack(res);
+	return res;
+}
+

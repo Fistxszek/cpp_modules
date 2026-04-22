@@ -1,17 +1,20 @@
 #include <iostream>
 #include <stack>
+#include <cctype>
+#include <stdexcept>
 
 class RPN
 {
 private:
-	std::stack<char> stack;
+	RPN(void);
+	std::stack<int> stack;
 
 public:
-	RPN(void);
-	RPN(std::string csv, std::string input);
+	RPN(char *input);
 	RPN(RPN &other);
 	RPN &operator=(const RPN &other);
-	void AddToStack(char c);
-	char PopTheStack();
+	~RPN(void);
+	void AddToStack(int val);
+	int PopTheStack();
 	int CalcOperator(char calc_operator);
 };
